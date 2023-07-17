@@ -20,6 +20,7 @@
         "visible": true,
         "required": true,
         "value": "https://api.pure1.purestorage.com",
+        "tooltip": "Server name or IP address to which you will connect and perform the automated operations",
         "description": "Server name or IP address to which you will connect and perform the automated operations"
       },
       {
@@ -30,6 +31,7 @@
         "visible": true,
         "required": true,
         "value": "",
+        "tooltip": "API key(in JWT format) to access the endpoint to which you will connect and perform the automated operations",
         "description": "API key(in JWT format) to access the endpoint to which you will connect and perform the automated operations"
       },
       {
@@ -40,6 +42,7 @@
         "visible": true,
         "required": true,
         "value": true,
+        "tooltip": "Specifies whether the SSL certificate for the server is to be verified or not. By default, this option is set as True.",
         "description": "Specifies whether the SSL certificate for the server is to be verified or not.\nBy default, this option is set as True."
       }
     ]
@@ -66,7 +69,7 @@
         },
         {
           "name": "names",
-          "title": "Names",
+          "title": "Alert Names",
           "type": "text",
           "editable": true,
           "visible": true,
@@ -81,7 +84,6 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "placeholder": "example: apt35,foo,bar",
           "tooltip": "Specify the filter criteria to retrieve required alerts. Single quotes are required around all strings inside the filters.",
           "description": "(Optional) Specify the filter criteria to retrieve required alerts. Single quotes are required around all strings inside the filters."
         },
@@ -164,7 +166,6 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "placeholder": "example: apt35,foo,bar",
           "tooltip": "Specify the filter criteria to retrieve required arrays. Single quotes are required around all strings inside the filters.",
           "description": "(Optional) Specify the filter criteria to retrieve required arrays. Single quotes are required around all strings inside the filters."
         },
@@ -175,7 +176,6 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "placeholder": "example: apt35,foo,bar",
           "tooltip": "Specify the comma-separated resource FQDNs. If there is not at least one resource that matches each fqdn element, an error is returned.",
           "description": "(Optional) Specify the comma-separated resource FQDNs. If there is not at least one resource that matches each fqdn element, an error is returned."
         },
@@ -206,6 +206,7 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "tooltip": "Specify the offset of the first resource to return from a collection.",
           "description": "(Optional) Specify the offset of the first resource to return from a collection."
         },
         {
@@ -237,8 +238,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the comma-separated resource IDs to retrieve the corresponding arrays. If there is not at least one resource that matches each id element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated resource IDs to retrieve the corresponding arrays. If there is not at least one resource that matches each id element, an error is returned."
+          "tooltip": "Specify the comma-separated resource IDs to retrieve the corresponding support contracts. If there is not at least one resource that matches each id element, an error is returned.",
+          "description": "(Optional) Specify the comma-separated resource IDs to retrieve the corresponding support contracts. If there is not at least one resource that matches each id element, an error is returned."
         },
         {
           "name": "resource_names",
@@ -247,8 +248,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the comma-separated resource names to retrieve the corresponding arrays. If there is not at least one resource that matches each name element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated resource names to retrieve the corresponding arrays. If there is not at least one resource that matches each name element, an error is returned."
+          "tooltip": "Specify the comma-separated resource names to retrieve the corresponding support contracts. If there is not at least one resource that matches each name element, an error is returned.",
+          "description": "(Optional) Specify the comma-separated resource names to retrieve the corresponding support contracts. If there is not at least one resource that matches each name element, an error is returned."
         },
         {
           "name": "filter",
@@ -257,7 +258,6 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "placeholder": "example: apt35,foo,bar",
           "tooltip": "Specify the filter criteria to retrieve required support contracts. Single quotes are required around all strings inside the filters.",
           "description": "(Optional) Specify the filter criteria to retrieve required support contracts. Single quotes are required around all strings inside the filters."
         },
@@ -268,7 +268,6 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "placeholder": "example: apt35,foo,bar",
           "tooltip": "Specify the comma-separated resource FQDNs. If there is not at least one resource that matches each fqdn element, an error is returned.",
           "description": "(Optional) Specify the comma-separated resource FQDNs. If there is not at least one resource that matches each fqdn element, an error is returned."
         },
@@ -318,7 +317,7 @@
       "operation": "get_array_tags",
       "title": "Get Array Tags",
       "annotation": "get_array_tags",
-      "description": "Retrieves the the tags associated with specified arrays from Pure Storage.",
+      "description": "Retrieves the tags associated with specified arrays from Pure Storage.",
       "category": "investigation",
       "visible": true,
       "enabled": true,
@@ -330,8 +329,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the comma-separated resource IDs to retrieve the corresponding arrays. If there is not at least one resource that matches each id element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated resource IDs to retrieve the corresponding arrays. If there is not at least one resource that matches each id element, an error is returned."
+          "tooltip": "Specify the comma-separated resource IDs to retrieve the corresponding array tags. If there is not at least one resource that matches each id element, an error is returned.",
+          "description": "(Optional) Specify the comma-separated resource IDs to retrieve the corresponding array tags. If there is not at least one resource that matches each id element, an error is returned."
         },
         {
           "name": "resource_names",
@@ -390,6 +389,7 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "tooltip": "Specify the offset of the first resource to return from a collection.",
           "description": "(Optional) Specify the offset of the first resource to return from a collection."
         },
         {
@@ -409,7 +409,7 @@
       "operation": "delete_array_tags",
       "title": "Delete Array Tags",
       "annotation": "delete_array_tags",
-      "description": "Deletes the the tags from Pure Storage based on input parameters specified.",
+      "description": "Deletes the tags from Pure Storage based on input parameters specified.",
       "category": "investigation",
       "visible": true,
       "enabled": true,
@@ -527,7 +527,7 @@
           "visible": true,
           "required": false,
           "tooltip": "Specify the comma-separated controller names to retrieve the corresponding controllers. If there is not at least one resource that matches each name element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated controller to retrieve the corresponding controllers. If there is not at least one resource that matches each name element, an error is returned."
+          "description": "(Optional) Specify the comma-separated controller names to retrieve the corresponding controllers. If there is not at least one resource that matches each name element, an error is returned."
         },
         {
           "name": "filter",
@@ -536,7 +536,6 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "placeholder": "example: apt35,foo,bar",
           "tooltip": "Specify the filter criteria to retrieve required controller. Single quotes are required around all strings inside the filters.",
           "description": "(Optional) Specify the filter criteria to retrieve required controller. Single quotes are required around all strings inside the filters."
         },
@@ -612,27 +611,47 @@
           "tooltip": "Specify the comma-separated directory names to retrieve the corresponding directories. If there is not at least one resource that matches each name element, an error is returned.",
           "description": "(Optional) Specify the comma-separated directory names to retrieve the corresponding directories. If there is not at least one resource that matches each name element, an error is returned."
         },
-           {
-          "name": "file_system_ids",
-          "title": "File System IDs",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "placeholder": "For example file_system_id1, file_system_id2",
-          "tooltip": "Specify the comma-separated directory IDs to retrieve the corresponding directories. If there is not at least one resource that matches each id element, an error is returned.",
-          "description": "(Optional) Specify the file system ID to perform the operation . Enter multiple file system IDs in comma-separated format. For example file_system_id1, file_system_id2. \n Note: This parameter cannot be provided if File System Names is provided and vice-versa."
-        },
         {
-          "name": "file_system_names",
-          "title": "File System Names",
-          "type": "text",
+          "name": "filesystem_filter",
+          "title": "Based on",
+          "type": "select",
           "editable": true,
           "visible": true,
           "required": false,
-          "placeholder": "For example filesystem1,filesystem2",
-          "tooltip": "Specify the file system name to perform the operation. If there is not at least one resource that matches each name element, an error is returned.",
-          "description": "(Optional) Specify the file system name to perform the operation. If there is not at least one resource that matches each name element, an error is returned. For example filesystem1,filesystem2 \n Note: This parameter cannot be provided if File System IDs is provided and vice-versa."
+          "tooltip": "Select the parameter using which you want to retrieve directories from Pure Storage.",
+          "description": "Select the parameter using which you want to retrieve directories from Pure Storage. You can choose from the following options: File System IDs or File System Names.",
+          "options": [
+            "File System IDs",
+            "File System Names"
+          ],
+          "onchange": {
+            "File System IDs": [
+              {
+                "name": "file_system_ids",
+                "title": "File System IDs",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": true,
+                "placeholder": "For example file_system_id1, file_system_id2",
+                "tooltip": "Specify the file system ID to perform the operation . Enter multiple file system IDs in comma-separated format.",
+                "description": "(Optional) Specify the file system ID to perform the operation . Enter multiple file system IDs in comma-separated format. For example file_system_id1, file_system_id2."
+              }
+            ],
+            "File System Names": [
+              {
+                "name": "file_system_names",
+                "title": "File System Names",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": true,
+                "placeholder": "For example filesystem1,filesystem2",
+                "tooltip": "Specify the file system name to perform the operation. If there is not at least one resource that matches each name element, an error is returned.",
+                "description": "(Optional) Specify the file system name to perform the operation. If there is not at least one resource that matches each name element, an error is returned. For example filesystem1,filesystem2."
+              }
+            ]
+          }
         },
         {
           "name": "filter",
@@ -641,7 +660,6 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "placeholder": "example: apt35,foo,bar",
           "tooltip": "Specify the filter criteria to retrieve required directories. Single quotes are required around all strings inside the filters.",
           "description": "(Optional) Specify the filter criteria to retrieve required directories. Single quotes are required around all strings inside the filters."
         },
@@ -724,7 +742,6 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "placeholder": "example: apt35,foo,bar",
           "tooltip": "Specify the filter criteria to retrieve required drives. Single quotes are required around all strings inside the filters.",
           "description": "(Optional) Specify the filter criteria to retrieve required drives. Single quotes are required around all strings inside the filters."
         },
