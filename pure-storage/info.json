@@ -104,8 +104,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings.",
-          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings."
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
         },
         {
           "name": "offset",
@@ -196,8 +196,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings.",
-          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings."
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
         },
         {
           "name": "offset",
@@ -288,8 +288,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings.",
-          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings."
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
         },
         {
           "name": "offset",
@@ -379,8 +379,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings.",
-          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings."
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
         },
         {
           "name": "offset",
@@ -556,8 +556,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings.",
-          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings."
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
         },
         {
           "name": "offset",
@@ -680,8 +680,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings.",
-          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings."
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
         },
         {
           "name": "offset",
@@ -762,8 +762,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings.",
-          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection. Note: Single quotes are required around all strings."
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
         },
         {
           "name": "offset",
