@@ -7,8 +7,8 @@
   "cs_approved": true,
   "cs_compatible": true,
   "category": "Storage",
-  "icon_small_name": "small_icon.png",
-  "icon_large_name": "large_icon.png",
+  "icon_small_name": "pure-storage-32X32.png",
+  "icon_large_name": "pure-storage-80X80.png",
   "help_online": "",
   "configuration": {
     "fields": [
