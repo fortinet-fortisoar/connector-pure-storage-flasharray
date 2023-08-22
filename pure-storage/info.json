@@ -20,19 +20,73 @@
         "visible": true,
         "required": true,
         "value": "https://api.pure1.purestorage.com",
-        "tooltip": "Server name or IP address to which you will connect and perform the automated operations",
-        "description": "Server name or IP address to which you will connect and perform the automated operations"
+        "tooltip": "Specify the server name or IP address to which you will connect and perform the automated operations",
+        "description": "Specify the server name or IP address to which you will connect and perform the automated operations"
       },
       {
-        "name": "token",
-        "title": "JWT Token",
-        "type": "password",
+        "name": "iss",
+        "title": "Issuer",
+        "type": "text",
         "editable": true,
         "visible": true,
         "required": true,
         "value": "",
-        "tooltip": "API key(in JWT format) to access the endpoint to which you will connect and perform the automated operations",
-        "description": "API key(in JWT format) to access the endpoint to which you will connect and perform the automated operations"
+        "tooltip": "Specify the application ID for the Pure1 or API client's trusted identity issuer on the array.",
+        "description": "Specify the application ID for the Pure1 or API client's trusted identity issuer on the array."
+      },
+      {
+        "name": "private_key",
+        "title": "Private Key",
+        "type": "file",
+        "editable": true,
+        "visible": true,
+        "required": true,
+        "tooltip": "Specify the private key ",
+        "description": "Specify the private key"
+      },
+      {
+        "name": "sub",
+        "title": "User Name",
+        "type": "text",
+        "editable": true,
+        "visible": true,
+        "required": false,
+        "value": "",
+        "tooltip": "Specify the login name of the array user for whom the token should be issued. This must be a valid user in the system.",
+        "description": "Specify the login name of the array user for whom the token should be issued. This must be a valid user in the system."
+      },
+      {
+        "name": "aud",
+        "title": "Client ID",
+        "type": "text",
+        "editable": true,
+        "visible": true,
+        "required": false,
+        "value": "",
+        "tooltip": "Client ID of the API client that issues the identity token.",
+        "description": "Client ID of the API client that issues the identity token."
+      },
+      {
+        "name": "kid",
+        "title": "Key ID",
+        "type": "text",
+        "editable": true,
+        "visible": true,
+        "required": false,
+        "value": "",
+        "tooltip": "Specify the Key ID of the API client that issues the identity token.",
+        "description": "Specify the Key ID of the API client that issues the identity token."
+      },
+      {
+        "name": "api_version",
+        "title": "API Version",
+        "type": "text",
+        "editable": true,
+        "visible": true,
+        "required": false,
+        "value": 2.23,
+        "tooltip": "Specify the API version of the Pure Storage. By default it is set to 2.23",
+        "description": "Specify the API version of the Pure Storage. By default it is set to 2.23."
       },
       {
         "name": "verify_ssl",
@@ -40,7 +94,7 @@
         "type": "checkbox",
         "editable": true,
         "visible": true,
-        "required": true,
+        "required": false,
         "value": true,
         "tooltip": "Specifies whether the SSL certificate for the server is to be verified or not. By default, this option is set as True.",
         "description": "Specifies whether the SSL certificate for the server is to be verified or not.\nBy default, this option is set as True."
@@ -58,24 +112,44 @@
       "enabled": true,
       "parameters": [
         {
-          "name": "ids",
-          "title": "Alert IDs",
-          "type": "text",
+          "name": "based_on",
+          "title": "Based on",
+          "type": "select",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the comma-separated alert IDs to retrieve the corresponding alerts. If there is not at least one resource that matches each id element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated alert IDs to retrieve the corresponding alerts. If there is not at least one resource that matches each id element, an error is returned."
-        },
-        {
-          "name": "names",
-          "title": "Alert Names",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated alert names to retrieve the corresponding alerts. If there is not at least one resource that matches each name element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated alert names to retrieve the corresponding alerts. If there is not at least one resource that matches each name element, an error is returned."
+          "tooltip": "Select the parameter using which you want to retrieve Alerts from Pure Storage.",
+          "description": "Select the parameter using which you want to retrieve Alerts from Pure Storage. You can choose from the following options: Alert IDs or Alert Names.",
+          "options": [
+            "Alert IDs",
+            "Alert Names"
+          ],
+          "onchange": {
+            "Alert IDs": [
+              {
+                "name": "ids",
+                "title": "Alert IDs",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": true,
+                "tooltip": "Specify the comma-separated alert IDs to retrieve the corresponding alerts. If there is not at least one resource that matches each id element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated alert IDs to retrieve the corresponding alerts. If there is not at least one resource that matches each id element, an error is returned."
+              }
+            ],
+            "Alert Names": [
+              {
+                "name": "names",
+                "title": "Alert Names",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": true,
+                "tooltip": "Specify the comma-separated alert names to retrieve the corresponding alerts. If there is not at least one resource that matches each name element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated alert names to retrieve the corresponding alerts. If there is not at least one resource that matches each name element, an error is returned."
+              }
+            ]
+          }
         },
         {
           "name": "filter",
@@ -84,8 +158,9 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "placeholder": "e.g. id='alert_id' and state='closed'",
           "tooltip": "Specify the filter criteria to retrieve required alerts. Single quotes are required around all strings inside the filters.",
-          "description": "(Optional) Specify the filter criteria to retrieve required alerts. Single quotes are required around all strings inside the filters."
+          "description": "(Optional) Specify the filter criteria to retrieve required alerts. Single quotes are required around all strings inside the filters. e.g. id='alert_id' and state='closed'"
         },
         {
           "name": "sort",
@@ -94,8 +169,34 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "placeholder": "e.g. severity-, id",
           "tooltip": "Specify fields to sort the alerts. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
-          "description": "(Optional) Specify fields to sort the alerts. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response."
+          "description": "(Optional) Specify fields to sort the alerts. If you want to sort in descending order then append '-' to the field name.e.g. id, name-.  Note: If you provide a sort you will not get a continuation token in the response. "
+        },
+        {
+          "name": "flagged",
+          "title": "Flagged",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select True if you want to retrieve only flagged alerts or False for unflagged messages. If not specified, lists all messages.",
+          "description": "Select True if you want to retrieve only flagged alerts or False for unflagged messages. If not specified, lists all messages.",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "name": "total_item_count",
+          "title": "Total Count",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.",
+          "description": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.By default it set to false."
         },
         {
           "name": "continuation_token",
@@ -128,7 +229,34 @@
           "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
         }
       ],
-      "output_schema": {}
+      "output_schema": {
+        "continuation_token": "",
+        "items": [
+          {
+            "created": "",
+            "component_type": "",
+            "name": "",
+            "id": "",
+            "state": "",
+            "description": "",
+            "category": "",
+            "severity": "",
+            "code": "",
+            "flagged": "",
+            "updated": "",
+            "closed": "",
+            "notified": "",
+            "component_name": "",
+            "expected": "",
+            "actual": "",
+            "issue": "",
+            "summary": "",
+            "knowledge_base_url": ""
+          }
+        ],
+        "more_items_remaining": "",
+        "total_item_count": ""
+      }
     },
     {
       "operation": "get_arrays",
@@ -140,24 +268,44 @@
       "enabled": true,
       "parameters": [
         {
-          "name": "ids",
-          "title": "Array IDs",
-          "type": "text",
+          "name": "based_on",
+          "title": "Based on",
+          "type": "select",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the comma-separated array IDs to retrieve the corresponding arrays. If there is not at least one resource that matches each id element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated array IDs to retrieve the corresponding arrays. If there is not at least one resource that matches each id element, an error is returned."
-        },
-        {
-          "name": "names",
-          "title": "Array Names",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated array names to retrieve the corresponding arrays. If there is not at least one resource that matches each name element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated array names to retrieve the corresponding arrays. If there is not at least one resource that matches each name element, an error is returned."
+          "tooltip": "Select the parameter using which you want to retrieve arrays from Pure Storage.",
+          "description": "Select the parameter using which you want to retrieve arrays from Pure Storage. You can choose from the following options: Array IDs or Array Names.",
+          "options": [
+            "Array IDs",
+            "Array Names"
+          ],
+          "onchange": {
+            "Array IDs": [
+              {
+                "name": "ids",
+                "title": "Array IDs",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the comma-separated array IDs to retrieve the corresponding arrays. If there is not at least one resource that matches each id element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated array IDs to retrieve the corresponding arrays. If there is not at least one resource that matches each id element, an error is returned."
+              }
+            ],
+            "Array Names": [
+              {
+                "name": "names",
+                "title": "Array Names",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the comma-separated array names to retrieve the corresponding arrays. If there is not at least one resource that matches each name element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated array names to retrieve the corresponding arrays. If there is not at least one resource that matches each name element, an error is returned."
+              }
+            ]
+          }
         },
         {
           "name": "filter",
@@ -166,8 +314,9 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "placeholder": "e.g. os='os_1' and parity='1.0'",
           "tooltip": "Specify the filter criteria to retrieve required arrays. Single quotes are required around all strings inside the filters.",
-          "description": "(Optional) Specify the filter criteria to retrieve required arrays. Single quotes are required around all strings inside the filters."
+          "description": "(Optional) Specify the filter criteria to retrieve required arrays. Single quotes are required around all strings inside the filters. e.g. os='os_1' and parity='1.0'"
         },
         {
           "name": "fqdns",
@@ -186,8 +335,20 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "placeholder": "e.g. space.total_provisioned, id",
           "tooltip": "Specify fields to sort the arrays. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
-          "description": "(Optional) Specify fields to sort the arrays. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response."
+          "description": "(Optional) Specify fields to sort the arrays. If you want to sort in descending order then append '-' to the field name. e.g. space.total_provisioned, id. Note: If you provide a sort you will not get a continuation token in the response."
+        },
+        {
+          "name": "total_item_count",
+          "title": "Total Count",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.",
+          "description": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.By default it set to false."
         },
         {
           "name": "continuation_token",
@@ -220,285 +381,55 @@
           "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
         }
       ],
-      "output_schema": {}
-    },
-    {
-      "operation": "get_array_support_contracts",
-      "title": "Get Array Support Contracts",
-      "annotation": "get_array_support_contracts",
-      "description": "Retrieves the support contracts associated with arrays from Pure Storage.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "resource_ids",
-          "title": "Resource IDs",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated resource IDs to retrieve the corresponding support contracts. If there is not at least one resource that matches each id element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated resource IDs to retrieve the corresponding support contracts. If there is not at least one resource that matches each id element, an error is returned."
-        },
-        {
-          "name": "resource_names",
-          "title": "Resource Names",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated resource names to retrieve the corresponding support contracts. If there is not at least one resource that matches each name element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated resource names to retrieve the corresponding support contracts. If there is not at least one resource that matches each name element, an error is returned."
-        },
-        {
-          "name": "filter",
-          "title": "Filter Query",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the filter criteria to retrieve required support contracts. Single quotes are required around all strings inside the filters.",
-          "description": "(Optional) Specify the filter criteria to retrieve required support contracts. Single quotes are required around all strings inside the filters."
-        },
-        {
-          "name": "resource_fqdns",
-          "title": "Resource FQDNs",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated resource FQDNs. If there is not at least one resource that matches each fqdn element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated resource FQDNs. If there is not at least one resource that matches each fqdn element, an error is returned."
-        },
-        {
-          "name": "sort",
-          "title": "Sort Fields",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify fields to sort the support contracts. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
-          "description": "(Optional) Specify fields to sort the support contracts. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response."
-        },
-        {
-          "name": "continuation_token",
-          "title": "Continuation Token",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
-          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
-        },
-        {
-          "name": "offset",
-          "title": "Offset",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "description": "(Optional) Specify the offset of the first resource to return from a collection."
-        },
-        {
-          "name": "limit",
-          "title": "Limit",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources.",
-          "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
-        }
-      ],
-      "output_schema": {}
-    },
-    {
-      "operation": "get_array_tags",
-      "title": "Get Array Tags",
-      "annotation": "get_array_tags",
-      "description": "Retrieves the tags associated with specified arrays from Pure Storage.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "resource_ids",
-          "title": "Resource IDs",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated resource IDs to retrieve the corresponding array tags. If there is not at least one resource that matches each id element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated resource IDs to retrieve the corresponding array tags. If there is not at least one resource that matches each id element, an error is returned."
-        },
-        {
-          "name": "resource_names",
-          "title": "Resource Names",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated resource names to retrieve the corresponding array tags. If there is not at least one resource that matches each name element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated resource names to retrieve the corresponding array tags. If there is not at least one resource that matches each name element, an error is returned."
-        },
-        {
-          "name": "filter",
-          "title": "Filter Query",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the filter criteria to retrieve required array tags. Single quotes are required around all strings inside the filters.",
-          "description": "(Optional) Specify the filter criteria to retrieve required array tags. Single quotes are required around all strings inside the filters."
-        },
-        {
-          "name": "keys",
-          "title": "Keys",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated tag keys to retrieve the corresponding array tags.",
-          "description": "(Optional) comma-separated tag keys to retrieve the corresponding array tags."
-        },
-        {
-          "name": "namespaces",
-          "title": "Namespaces",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify comma-separated namespaces to retrieve the corresponding tags",
-          "description": "(Optional) Specify comma-separated namespaces to retrieve the corresponding tags"
-        },
-        {
-          "name": "continuation_token",
-          "title": "Continuation Token",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
-          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
-        },
-        {
-          "name": "offset",
-          "title": "Offset",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the offset of the first resource to return from a collection.",
-          "description": "(Optional) Specify the offset of the first resource to return from a collection."
-        },
-        {
-          "name": "limit",
-          "title": "Limit",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources.",
-          "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
-        }
-      ],
-      "output_schema": {}
-    },
-    {
-      "operation": "delete_array_tags",
-      "title": "Delete Array Tags",
-      "annotation": "delete_array_tags",
-      "description": "Deletes the tags from Pure Storage based on input parameters specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "resource_ids",
-          "title": "Resource IDs",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated resource IDs to delete the corresponding array tags. If there is not at least one resource that matches each id element, an error is returned. Note: This parameter is required if Resource Names is not specified.",
-          "description": "Specify the comma-separated resource IDs to delete the corresponding array tags. If there is not at least one resource that matches each id element, an error is returned. Note: This parameter is required if Resource Names is not specified."
-        },
-        {
-          "name": "resource_names",
-          "title": "Resource Names",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated resource names to delete the corresponding array tags. If there is not at least one resource that matches each name element, an error is returned. Note: This parameter is required if Resource IDs is not specified.",
-          "description": "(Optional) Specify the comma-separated resource names to delete the corresponding array tags. If there is not at least one resource that matches each name element, an error is returned. Note: This parameter is required if Resource IDs is not specified."
-        },
-        {
-          "name": "keys",
-          "title": "Keys",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated tag keys to delete the corresponding array tags.",
-          "description": "(Optional) comma-separated tag keys to delete the corresponding array tags."
-        },
-        {
-          "name": "namespaces",
-          "title": "Namespaces",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify comma-separated namespaces to delete the corresponding tags.",
-          "description": "(Optional) Specify comma-separated namespaces to delete the corresponding tags."
-        }
-      ],
-      "output_schema": {}
-    },
-    {
-      "operation": "create_or_update_array_tags",
-      "title": "Create or Update Array Tags",
-      "annotation": "create_or_update_array_tags",
-      "description": "Creates or Updates Array Tags Pure Storage based on input parameters specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "tags",
-          "title": "Tags",
-          "type": "json",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "value": "[\n  {\n    \"key\": \"example_key\",\n    \"value\": \"value123\"\n  }\n]",
-          "tooltip": "Specify list of tags to be upserted.",
-          "description": "Specify list of tags to be upserted. For example [\n  {\n    \"key\": \"example_key\",\n    \"value\": \"value123\"\n  }\n]"
-        },
-        {
-          "name": "resource_ids",
-          "title": "Resource IDs",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated resource IDs to create or update the corresponding array tags. If there is not at least one resource that matches each id element, an error is returned. Note: This parameter is required if Resource Names is not specified.",
-          "description": "Specify the comma-separated resource IDs to create or update the corresponding array tags. If there is not at least one resource that matches each id element, an error is returned. Note: This parameter is required if Resource Names is not specified."
-        },
-        {
-          "name": "resource_names",
-          "title": "Resource Names",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated resource names to create or update the corresponding array tags. If there is not at least one resource that matches each name element, an error is returned. Note: This parameter is required if Resource IDs is not specified.",
-          "description": "(Optional) Specify the comma-separated resource names to create or update the corresponding array tags. If there is not at least one resource that matches each name element, an error is returned. Note: This parameter is required if Resource IDs is not specified."
-        }
-      ],
-      "output_schema": {}
+      "output_schema": {
+        "continuation_token": "",
+        "items": [
+          {
+            "name": "",
+            "id": "",
+            "space": {
+              "data_reduction": "",
+              "shared": "",
+              "snapshots": "",
+              "system": "",
+              "thin_provisioning": "",
+              "total_physical": "",
+              "total_provisioned": "",
+              "total_reduction": "",
+              "unique": "",
+              "virtual": "",
+              "unique_effective": "",
+              "snapshots_effective": "",
+              "total_effective": "",
+              "used_provisioned": "",
+              "replication": "",
+              "shared_effective": ""
+            },
+            "capacity": "",
+            "parity": "",
+            "eradication_config": {
+              "manual_eradication": "",
+              "eradication_delay": ""
+            },
+            "console_lock_enabled": "",
+            "encryption": {
+              "data_at_rest": {
+                "algorithm": "",
+                "enabled": ""
+              },
+              "module_version": ""
+            },
+            "idle_timeout": "",
+            "ntp_servers": [],
+            "os": "",
+            "scsi_timeout": "",
+            "version": "",
+            "banner": ""
+          }
+        ],
+        "more_items_remaining": "",
+        "total_item_count": ""
+      }
     },
     {
       "operation": "get_controllers",
@@ -509,16 +440,6 @@
       "visible": true,
       "enabled": true,
       "parameters": [
-        {
-          "name": "ids",
-          "title": "Controller IDs",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated controller IDs to retrieve the corresponding controllers. If there is not at least one resource that matches each id element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated controller IDs to retrieve the corresponding controllers. If there is not at least one resource that matches each id element, an error is returned."
-        },
         {
           "name": "names",
           "title": "Controller Names",
@@ -536,8 +457,9 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "placeholder": "e.g. status='ready' and mode='primary'",
           "tooltip": "Specify the filter criteria to retrieve required controller. Single quotes are required around all strings inside the filters.",
-          "description": "(Optional) Specify the filter criteria to retrieve required controller. Single quotes are required around all strings inside the filters."
+          "description": "(Optional) Specify the filter criteria to retrieve required controller. Single quotes are required around all strings inside the filters. e.g. status='ready' and mode='primary'"
         },
         {
           "name": "sort",
@@ -546,8 +468,20 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "placeholder": "e.g. status-, name",
           "tooltip": "Specify fields to sort the controller. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
-          "description": "(Optional) Specify fields to sort the controller. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response."
+          "description": "(Optional) Specify fields to sort the controller. If you want to sort in descending order then append '-' to the field name. e.g. status-, name. Note: If you provide a sort you will not get a continuation token in the response."
+        },
+        {
+          "name": "total_item_count",
+          "title": "Total Count",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.",
+          "description": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.By default it set to false."
         },
         {
           "name": "continuation_token",
@@ -580,7 +514,21 @@
           "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
         }
       ],
-      "output_schema": {}
+      "output_schema": {
+        "continuation_token": "",
+        "items": [
+          {
+            "type": "",
+            "name": "",
+            "status": "",
+            "mode": "",
+            "model": "",
+            "version": ""
+          }
+        ],
+        "more_items_remaining": "",
+        "total_item_count": ""
+      }
     },
     {
       "operation": "get_directories",
@@ -592,28 +540,48 @@
       "enabled": true,
       "parameters": [
         {
-          "name": "ids",
-          "title": "Directory IDs",
-          "type": "text",
+          "name": "based_on",
+          "title": "Based on",
+          "type": "select",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the comma-separated directory IDs to retrieve the corresponding directories. If there is not at least one resource that matches each id element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated directory IDs to retrieve the corresponding directories. If there is not at least one resource that matches each id element, an error is returned."
-        },
-        {
-          "name": "names",
-          "title": "Directory Names",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated directory names to retrieve the corresponding directories. If there is not at least one resource that matches each name element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated directory names to retrieve the corresponding directories. If there is not at least one resource that matches each name element, an error is returned."
+          "tooltip": "Select the parameter using which you want to retrieve directories from Pure Storage.",
+          "description": "Select the parameter using which you want to retrieve directories from Pure Storage. You can choose from the following options: Directory IDs or Directory Names.",
+          "options": [
+            "Directory IDs",
+            "Directory Names"
+          ],
+          "onchange": {
+            "Directory IDs": [
+              {
+                "name": "ids",
+                "title": "Directory IDs",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the comma-separated directory IDs to retrieve the corresponding directories. If there is not at least one resource that matches each id element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated directory IDs to retrieve the corresponding directories. If there is not at least one resource that matches each id element, an error is returned."
+              }
+            ],
+            "Directory Names": [
+              {
+                "name": "names",
+                "title": "Directory Names",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the comma-separated directory names to retrieve the corresponding directories. If there is not at least one resource that matches each name element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated directory names to retrieve the corresponding directories. If there is not at least one resource that matches each name element, an error is returned."
+              }
+            ]
+          }
         },
         {
           "name": "filesystem_filter",
-          "title": "Based on",
+          "title": "File System Filter",
           "type": "select",
           "editable": true,
           "visible": true,
@@ -674,6 +642,43 @@
           "description": "(Optional) Specify fields to sort the directories. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response."
         },
         {
+          "name": "destroyed",
+          "title": "Destroyed",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, lists only destroyed objects that are in the eradication pending state. If set to false, lists only objects that are not destroyed. For destroyed objects, the time remaining is displayed in milliseconds.",
+          "description": "If set to true, lists only destroyed objects that are in the eradication pending state. If set to false, lists only objects that are not destroyed. For destroyed objects, the time remaining is displayed in milliseconds.",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "name": "total_item_count",
+          "title": "Total Count",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.",
+          "description": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.By default it set to false."
+        },
+        {
+          "name": "total_only",
+          "title": "Total Only",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, returns the aggregate value of all items after filtering. Where it makes more sense, the average value is displayed instead. The values are displayed for each name where meaningful. If total_only=true, the items list will be empty.",
+          "description": "If set to true, returns the aggregate value of all items after filtering. Where it makes more sense, the average value is displayed instead. The values are displayed for each name where meaningful. If total_only=true, the items list will be empty. By default set to False."
+        },
+        {
           "name": "continuation_token",
           "title": "Continuation Token",
           "type": "text",
@@ -704,7 +709,52 @@
           "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
         }
       ],
-      "output_schema": {}
+      "output_schema": {
+        "continuation_token": "",
+        "items": [],
+        "more_items_remaining": "",
+        "total": [
+          {
+            "path": "",
+            "created": "",
+            "name": "",
+            "id": "",
+            "space": {
+              "data_reduction": "",
+              "shared": "",
+              "snapshots": "",
+              "system": "",
+              "thin_provisioning": "",
+              "total_physical": "",
+              "total_provisioned": "",
+              "total_reduction": "",
+              "unique": "",
+              "virtual": "",
+              "used_provisioned": ""
+            },
+            "file_system": {
+              "name": "",
+              "id": ""
+            },
+            "destroyed": "",
+            "time_remaining": "",
+            "directory_name": "",
+            "limited_by": {
+              "member": {
+                "resource_type": "",
+                "name": "",
+                "id": ""
+              },
+              "policy": {
+                "resource_type": "",
+                "name": "",
+                "id": ""
+              }
+            }
+          }
+        ],
+        "total_item_count": ""
+      }
     },
     {
       "operation": "get_drives",
@@ -715,16 +765,6 @@
       "visible": true,
       "enabled": true,
       "parameters": [
-        {
-          "name": "ids",
-          "title": "Drive IDs",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the comma-separated drive IDs to retrieve the corresponding drives. If there is not at least one resource that matches each id element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated drive IDs to retrieve the corresponding drives. If there is not at least one resource that matches each id element, an error is returned."
-        },
         {
           "name": "names",
           "title": "Drive Names",
@@ -742,8 +782,9 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "placeholder":"e.g. type='SSD' and status='healthy'",
           "tooltip": "Specify the filter criteria to retrieve required drives. Single quotes are required around all strings inside the filters.",
-          "description": "(Optional) Specify the filter criteria to retrieve required drives. Single quotes are required around all strings inside the filters."
+          "description": "(Optional) Specify the filter criteria to retrieve required drives. Single quotes are required around all strings inside the filters. e.g. type='SSD' and status='healthy'"
         },
         {
           "name": "sort",
@@ -752,8 +793,20 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "placeholder": "e.g. capacity-, name",
           "tooltip": "Specify fields to sort the drives. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
-          "description": "(Optional) Specify fields to sort the drives. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response."
+          "description": "(Optional) Specify fields to sort the drives. If you want to sort in descending order then append '-' to the field name. e.g. capacity-, name. Note: If you provide a sort you will not get a continuation token in the response."
+        },
+        {
+          "name": "total_item_count",
+          "title": "Total Count",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.",
+          "description": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.By default it set to false."
         },
         {
           "name": "continuation_token",
@@ -786,7 +839,777 @@
           "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
         }
       ],
-      "output_schema": {}
+      "output_schema": {
+        "continuation_token": "",
+        "items": [
+          {
+            "type": "",
+            "name": "",
+            "protocol": "",
+            "status": "",
+            "capacity": "",
+            "details": ""
+          }
+        ],
+        "more_items_remaining": "",
+        "total_item_count": ""
+      }
+    },
+    {
+      "operation": "get_audits",
+      "title": "Get Audit List",
+      "annotation": "get_audits",
+      "description": "Retrieves a list of audits from Pure Storage.",
+      "category": "investigation",
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "based_on",
+          "title": "Based on",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select the parameter using which you want to retrieve directories from Pure Storage.",
+          "description": "Select the parameter using which you want to retrieve directories from Pure Storage. You can choose from the following options: Audit IDs or Audit Names.",
+          "options": [
+            "Audit IDs",
+            "Audit Names"
+          ],
+          "onchange": {
+            "Audit IDs": [
+              {
+                "name": "ids",
+                "title": "Audit IDs",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the comma-separated audit IDs to retrieve the corresponding audits. If there is not at least one resource that matches each id element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated audit IDs to retrieve the corresponding audit. If there is not at least one resource that matches each id element, an error is returned."
+              }
+            ],
+            "Audit Names": [
+              {
+                "name": "names",
+                "title": "Audit Names",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the comma-separated audit names to retrieve the corresponding audits. If there is not at least one resource that matches each name element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated audit names to retrieve the corresponding audits. If there is not at least one resource that matches each name element, an error is returned."
+              }
+            ]
+          }
+        },
+        {
+          "name": "filter",
+          "title": "Filter Query",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "placeholder": "e.g. user='root' and command='purearray'",
+          "required": false,
+          "tooltip": "Specify the filter criteria to retrieve required audits. Single quotes are required around all strings inside the filters.",
+          "description": "(Optional) Specify the filter criteria to retrieve required audits. Single quotes are required around all strings inside the filters. e.g. user='root' and command='purearray'"
+        },
+        {
+          "name": "sort",
+          "title": "Sort Fields",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "placeholder": "e.g. user, command-, name",
+          "tooltip": "Specify fields to sort the audits. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
+          "description": "(Optional) Specify fields to sort the audits. If you want to sort in descending order then append '-' to the field name. e.g. user, command-, name. Note: If you provide a sort you will not get a continuation token in the response."
+        },
+        {
+          "name": "total_item_count",
+          "title": "Total Count",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.",
+          "description": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.By default it set to false."
+        },
+        {
+          "name": "continuation_token",
+          "title": "Continuation Token",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
+        },
+        {
+          "name": "offset",
+          "title": "Offset",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the offset of the first resource to return from a collection.",
+          "description": "(Optional) Specify the offset of the first resource to return from a collection."
+        },
+        {
+          "name": "limit",
+          "title": "Limit",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources.",
+          "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
+        }
+      ],
+      "output_schema": {
+        "continuation_token": "",
+        "items": [
+          {
+            "arguments": "",
+            "name": "",
+            "id": "",
+            "time": "",
+            "origin": {
+              "name": "",
+              "id": ""
+            },
+            "user": "",
+            "command": "",
+            "user_interface": "",
+            "subcommand": ""
+          }
+        ],
+        "more_items_remaining": "",
+        "total_item_count": ""
+      }
+    },
+    {
+      "operation": "get_volumes",
+      "title": "Get Volume List",
+      "annotation": "get_volumes",
+      "description": "Retrieves volume list including those pending eradication from Pure Storage.",
+      "category": "investigation",
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "based_on",
+          "title": "Based on",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select the parameter using which you want to retrieve volumes from Pure Storage.",
+          "description": "Select the parameter using which you want to retrieve volumes from Pure Storage. You can choose from the following options: Volume IDs or Volume Names.",
+          "options": [
+            "Volume IDs",
+            "Volume Names"
+          ],
+          "onchange": {
+            "Volume IDs": [
+              {
+                "name": "ids",
+                "title": "Volume IDs",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the comma-separated directory IDs to retrieve the corresponding volumes. If there is not at least one resource that matches each id element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated directory IDs to retrieve the corresponding volumes. If there is not at least one resource that matches each id element, an error is returned."
+              }
+            ],
+            "Volume Names": [
+              {
+                "name": "names",
+                "title": "Volume Names",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the comma-separated directory names to retrieve the corresponding volumes. If there is not at least one resource that matches each name element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated directory names to retrieve the corresponding volumes. If there is not at least one resource that matches each name element, an error is returned."
+              }
+            ]
+          }
+        },
+        {
+          "name": "filter",
+          "title": "Filter Query",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "placeholder": "e.g. destroyed='false' and connection_count=1",
+          "tooltip": "Specify the filter criteria to retrieve required directories. Single quotes are required around all strings inside the filters.",
+          "description": "(Optional) Specify the filter criteria to retrieve required directories. Single quotes are required around all strings inside the filters. e.g. destroyed='false' and connection_count=1"
+        },
+        {
+          "name": "sort",
+          "title": "Sort Fields",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "placeholder": "e.g. provisioned-, created",
+          "tooltip": "Specify fields to sort the directories. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
+          "description": "(Optional) Specify fields to sort the directories. If you want to sort in descending order then append '-' to the field name. e.g. provisioned-, created. Note: If you provide a sort you will not get a continuation token in the response."
+        },
+        {
+          "name": "destroyed",
+          "title": "Destroyed",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, lists only destroyed objects that are in the eradication pending state. If set to false, lists only objects that are not destroyed. For destroyed objects, the time remaining is displayed in milliseconds.",
+          "description": "If set to true, lists only destroyed objects that are in the eradication pending state. If set to false, lists only objects that are not destroyed. For destroyed objects, the time remaining is displayed in milliseconds.",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "name": "total_item_count",
+          "title": "Total Count",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.",
+          "description": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.By default it set to false."
+        },
+        {
+          "name": "total_only",
+          "title": "Total Only",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, returns the aggregate value of all items after filtering. Where it makes more sense, the average value is displayed instead. The values are displayed for each name where meaningful. If total_only=true, the items list will be empty.",
+          "description": "If set to true, returns the aggregate value of all items after filtering. Where it makes more sense, the average value is displayed instead. The values are displayed for each name where meaningful. If total_only=true, the items list will be empty. By default set to False."
+        },
+        {
+          "name": "continuation_token",
+          "title": "Continuation Token",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
+        },
+        {
+          "name": "offset",
+          "title": "Offset",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the offset of the first resource to return from a collection.",
+          "description": "(Optional) Specify the offset of the first resource to return from a collection."
+        },
+        {
+          "name": "limit",
+          "title": "Limit",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources.",
+          "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
+        }
+      ],
+      "output_schema": {
+        "items": [
+          {
+            "created": "",
+            "provisioned": "",
+            "name": "",
+            "priority": "",
+            "source": {
+              "name": "",
+              "id": ""
+            },
+            "destroyed": "",
+            "id": "",
+            "serial": "",
+            "host_encryption_key_status": "",
+            "requested_promotion_state": "",
+            "promotion_status": "",
+            "pod": {
+              "name": "",
+              "id": ""
+            },
+            "time_remaining": "",
+            "qos": {
+              "bandwidth_limit": "",
+              "iops_limit": ""
+            },
+            "space": {
+              "data_reduction": "",
+              "shared": "",
+              "snapshots": "",
+              "system": "",
+              "thin_provisioning": "",
+              "total_physical": "",
+              "total_provisioned": "",
+              "total_reduction": "",
+              "unique": "",
+              "virtual": "",
+              "unique_effective": "",
+              "snapshots_effective": "",
+              "total_effective": "",
+              "used_provisioned": ""
+            },
+            "connection_count": "",
+            "priority_adjustment": {
+              "priority_adjustment_operator": "",
+              "priority_adjustment_value": ""
+            },
+            "subtype": "",
+            "volume_group": {
+              "name": "",
+              "id": ""
+            }
+          }
+        ],
+        "total": [
+          {
+            "created": "",
+            "provisioned": "",
+            "name": "",
+            "priority": "",
+            "source": {
+              "name": "",
+              "id": ""
+            },
+            "destroyed": "",
+            "id": "",
+            "serial": "",
+            "host_encryption_key_status": "",
+            "requested_promotion_state": "",
+            "promotion_status": "",
+            "pod": {
+              "name": "",
+              "id": ""
+            },
+            "time_remaining": "",
+            "qos": {
+              "bandwidth_limit": "",
+              "iops_limit": ""
+            },
+            "space": {
+              "data_reduction": "",
+              "shared": "",
+              "snapshots": "",
+              "system": "",
+              "thin_provisioning": "",
+              "total_physical": "",
+              "total_provisioned": "",
+              "total_reduction": "",
+              "unique": "",
+              "virtual": "",
+              "unique_effective": "",
+              "snapshots_effective": "",
+              "total_effective": "",
+              "used_provisioned": ""
+            },
+            "connection_count": "",
+            "priority_adjustment": {
+              "priority_adjustment_operator": "",
+              "priority_adjustment_value": ""
+            },
+            "subtype": "",
+            "volume_group": {
+              "name": "",
+              "id": ""
+            }
+          }
+        ],
+        "continuation_token": "",
+        "more_items_remaining": "",
+        "total_item_count": ""
+      }
+    },
+    {
+      "operation": "get_protection_groups",
+      "title": "Get Protection Group List",
+      "annotation": "get_protection_groups",
+      "description": "Retrieves a list of protection groups, including their associated source arrays, replication targets, hosts, host groups, and volumes from Pure Storage. The list includes protection groups that were created on the local array to replicate snapshot data to other arrays or offload targets, created on a remote array and replicated asynchronously to this array, or created inside a pod on a remote array and stretched to the local array.",
+      "category": "investigation",
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "names",
+          "title": "Protection Group Names",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the comma-separated directory names to retrieve the corresponding protection groups. If there is not at least one resource that matches each name element, an error is returned.",
+          "description": "(Optional) Specify the comma-separated directory names to retrieve the corresponding protection groups. If there is not at least one resource that matches each name element, an error is returned."
+        },
+        {
+          "name": "filter",
+          "title": "Filter Query",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "placeholder": "e.g. eradication_config.manual_eradication!='enabled' or pod.name='pod1'",
+          "tooltip": "Specify the filter criteria to retrieve required protection groups. Single quotes are required around all strings inside the filters.",
+          "description": "(Optional) Specify the filter criteria to retrieve required protection groups. Single quotes are required around all strings inside the filters. e.g. eradication_config.manual_eradication!='enabled' or pod.name='pod1'"
+        },
+        {
+          "name": "sort",
+          "title": "Sort Fields",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "placeholder": "e.g. space.snapshots-, name",
+          "tooltip": "Specify fields to sort the protection groups. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
+          "description": "(Optional) Specify fields to sort the protection groups. If you want to sort in descending order then append '-' to the field name.e.g. space.snapshots-, name. Note: If you provide a sort you will not get a continuation token in the response."
+        },
+        {
+          "name": "destroyed",
+          "title": "Destroyed",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, lists only destroyed objects that are in the eradication pending state. If set to false, lists only objects that are not destroyed. For destroyed objects, the time remaining is displayed in milliseconds.",
+          "description": "If set to true, lists only destroyed objects that are in the eradication pending state. If set to false, lists only objects that are not destroyed. For destroyed objects, the time remaining is displayed in milliseconds.",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "name": "total_item_count",
+          "title": "Total Count",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.",
+          "description": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.By default it set to false."
+        },
+        {
+          "name": "total_only",
+          "title": "Total Only",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, returns the aggregate value of all items after filtering. Where it makes more sense, the average value is displayed instead. The values are displayed for each name where meaningful. If total_only=true, the items list will be empty.",
+          "description": "If set to true, returns the aggregate value of all items after filtering. Where it makes more sense, the average value is displayed instead. The values are displayed for each name where meaningful. If total_only=true, the items list will be empty. By default set to False."
+        },
+        {
+          "name": "continuation_token",
+          "title": "Continuation Token",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
+        },
+        {
+          "name": "offset",
+          "title": "Offset",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the offset of the first resource to return from a collection.",
+          "description": "(Optional) Specify the offset of the first resource to return from a collection."
+        },
+        {
+          "name": "limit",
+          "title": "Limit",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources.",
+          "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
+        }
+      ],
+      "output_schema": {
+        "continuation_token": "",
+        "items": [
+          {
+            "is_local": "",
+            "name": "",
+            "space": {
+              "data_reduction": "",
+              "shared": "",
+              "snapshots": "",
+              "system": "",
+              "thin_provisioning": "",
+              "total_physical": "",
+              "total_provisioned": "",
+              "total_reduction": "",
+              "unique": "",
+              "virtual": "",
+              "used_provisioned": ""
+            },
+            "source": {
+              "name": "",
+              "id": ""
+            },
+            "destroyed": "",
+            "retention_lock": "",
+            "pod": {
+              "name": "",
+              "id": ""
+            },
+            "time_remaining": "",
+            "host_count": "",
+            "host_group_count": "",
+            "target_count": "",
+            "target_retention": {
+              "all_for_sec": "",
+              "days": "",
+              "per_day": ""
+            },
+            "volume_count": "",
+            "snapshot_schedule": {
+              "enabled": "",
+              "at": "",
+              "frequency": ""
+            },
+            "replication_schedule": {
+              "enabled": "",
+              "at": "",
+              "blackout": {
+                "start": "",
+                "end": ""
+              },
+              "frequency": ""
+            },
+            "source_retention": {
+              "all_for_sec": "",
+              "days": "",
+              "per_day": ""
+            },
+            "eradication_config": {
+              "manual_eradication": ""
+            }
+          }
+        ],
+        "more_items_remaining": "",
+        "total": [
+          {
+            "is_local": "",
+            "name": "",
+            "space": {
+              "data_reduction": "",
+              "shared": "",
+              "snapshots": "",
+              "system": "",
+              "thin_provisioning": "",
+              "total_physical": "",
+              "total_provisioned": "",
+              "total_reduction": "",
+              "unique": "",
+              "virtual": "",
+              "used_provisioned": ""
+            },
+            "source": {
+              "name": "",
+              "id": ""
+            },
+            "destroyed": "",
+            "retention_lock": "",
+            "pod": {
+              "name": "",
+              "id": ""
+            },
+            "time_remaining": "",
+            "host_count": "",
+            "host_group_count": "",
+            "target_count": "",
+            "target_retention": {
+              "all_for_sec": "",
+              "days": "",
+              "per_day": ""
+            },
+            "volume_count": "",
+            "snapshot_schedule": {
+              "enabled": "",
+              "at": "",
+              "frequency": ""
+            },
+            "replication_schedule": {
+              "enabled": "",
+              "at": "",
+              "blackout": {
+                "start": "",
+                "end": ""
+              },
+              "frequency": ""
+            },
+            "source_retention": {
+              "all_for_sec": "",
+              "days": "",
+              "per_day": ""
+            },
+            "eradication_config": {
+              "manual_eradication": ""
+            }
+          }
+        ],
+        "total_item_count": ""
+      }
+    },
+    {
+      "operation": "get_sessions",
+      "title": "Get Session List",
+      "annotation": "get_alerts",
+      "description": "Retrieves information about session for user login events performed in the Purity//FA GUI, CLI, and REST API.",
+      "category": "investigation",
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "based_on",
+          "title": "Based on",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select the parameter using which you want to retrieve session from Pure Storage.",
+          "description": "Select the parameter using which you want to retrieve session from Pure Storage. You can choose from the following options: Session IDs or Session Names.",
+          "options": [
+            "Session IDs",
+            "Session Names"
+          ],
+          "onchange": {
+            "Session IDs": [
+              {
+                "name": "ids",
+                "title": "Session IDs",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the comma-separated directory IDs to retrieve the corresponding sessions. If there is not at least one resource that matches each id element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated directory IDs to retrieve the corresponding sessions. If there is not at least one resource that matches each id element, an error is returned."
+              }
+            ],
+            "Session Names": [
+              {
+                "name": "names",
+                "title": "Session Names",
+                "type": "text",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the comma-separated directory names to retrieve the corresponding sessions. If there is not at least one resource that matches each name element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated directory names to retrieve the corresponding sessions. If there is not at least one resource that matches each name element, an error is returned."
+              }
+            ]
+          }
+        },
+        {
+          "name": "filter",
+          "title": "Filter Query",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "placeholder": "event='failed authentication' and event_count>3",
+          "tooltip": "Specify the filter criteria to retrieve required sessions. Single quotes are required around all strings inside the filters.",
+          "description": "(Optional) Specify the filter criteria to retrieve required sessions. Single quotes are required around all strings inside the filters. e.g. event='failed authentication' and event_count>3"
+        },
+        {
+          "name": "sort",
+          "title": "Sort Fields",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "placeholder": "e.g. event_count-, end_time-",
+          "tooltip": "Specify fields to sort the sessions. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
+          "description": "(Optional) Specify fields to sort the sessions. If you want to sort in descending order then append '-' to the field name. e.g. event_count-, end_time-. Note: If you provide a sort you will not get a continuation token in the response."
+        },
+        {
+          "name": "total_item_count",
+          "title": "Total Count",
+          "type": "checkbox",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": false,
+          "tooltip": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.",
+          "description": "If set to true, the total_item_count matching the specified query parameters is calculated and returned in the response. If set to false, the total_item_count is null in the response. This may speed up queries where the total_item_count is large.By default it set to false."
+        },
+        {
+          "name": "continuation_token",
+          "title": "Continuation Token",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify continuation token returned in the continuation_token field of previous request to iterate on collection.",
+          "description": "(Optional) Specify continuation token returned in the continuation_token field of previous request to iterate on collection."
+        },
+        {
+          "name": "offset",
+          "title": "Offset",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the offset of the first resource to return from a collection.",
+          "description": "(Optional) Specify the offset of the first resource to return from a collection."
+        },
+        {
+          "name": "limit",
+          "title": "Limit",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources.",
+          "description": "(Optional) Specify the maximum number of resources to be retrieve in this request. By default it will retrieve 1000 resources."
+        }
+      ],
+      "output_schema": {
+        "continuation_token": "",
+        "items": [
+          {
+            "start_time": "",
+            "end_time": "",
+            "name": "",
+            "method": "",
+            "location": "",
+            "id": "",
+            "user": "",
+            "event": "",
+            "user_interface": "",
+            "event_count": ""
+          }
+        ],
+        "more_items_remaining": "",
+        "total_item_count": ""
+      }
     }
   ]
 }
