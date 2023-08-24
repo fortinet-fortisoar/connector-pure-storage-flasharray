@@ -1047,8 +1047,8 @@
           "visible": true,
           "required": false,
           "placeholder": "e.g. destroyed='false' and connection_count=1",
-          "tooltip": "Specify the filter criteria to retrieve required volume. Single quotes are required around all strings inside the filters.",
-          "description": "(Optional) Specify the filter criteria to retrieve required directories. Single quotes are required around all strings inside the filters. e.g. destroyed='false' and connection_count=1"
+          "tooltip": "Specify the filter criteria to retrieve required volumes. Single quotes are required around all strings inside the filters.",
+          "description": "(Optional) Specify the filter criteria to retrieve required volumes. Single quotes are required around all strings inside the filters. e.g. destroyed='false' and connection_count=1"
         },
         {
           "name": "sort",
