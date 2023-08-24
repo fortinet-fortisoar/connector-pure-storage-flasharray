@@ -180,8 +180,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Select True if you want to retrieve only flagged alerts or False for unflagged messages. If not specified, lists all messages.",
-          "description": "Select True if you want to retrieve only flagged alerts or False for unflagged messages. If not specified, lists all messages.",
+          "tooltip": "Select True if you want to retrieve only flagged alerts or False for unflagged alerts. If not specified, lists all alerts.",
+          "description": "Select True if you want to retrieve only flagged alerts or False for unflagged alerts. If not specified, lists all alerts.",
           "options": [
             "True",
             "False"
@@ -871,8 +871,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Select the parameter using which you want to retrieve directories from Pure Storage.",
-          "description": "Select the parameter using which you want to retrieve directories from Pure Storage. You can choose from the following options: Audit IDs or Audit Names.",
+          "tooltip": "Select the parameter using which you want to retrieve audits from Pure Storage.",
+          "description": "Select the parameter using which you want to retrieve audits from Pure Storage. You can choose from the following options: Audit IDs or Audit Names.",
           "options": [
             "Audit IDs",
             "Audit Names"
@@ -1021,8 +1021,8 @@
                 "editable": true,
                 "visible": true,
                 "required": false,
-                "tooltip": "Specify the comma-separated directory IDs to retrieve the corresponding volumes. If there is not at least one resource that matches each id element, an error is returned.",
-                "description": "(Optional) Specify the comma-separated directory IDs to retrieve the corresponding volumes. If there is not at least one resource that matches each id element, an error is returned."
+                "tooltip": "Specify the comma-separated volume IDs to retrieve the corresponding volumes. If there is not at least one resource that matches each id element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated volume IDs to retrieve the corresponding volumes. If there is not at least one resource that matches each id element, an error is returned."
               }
             ],
             "Volume Names": [
@@ -1033,8 +1033,8 @@
                 "editable": true,
                 "visible": true,
                 "required": false,
-                "tooltip": "Specify the comma-separated directory names to retrieve the corresponding volumes. If there is not at least one resource that matches each name element, an error is returned.",
-                "description": "(Optional) Specify the comma-separated directory names to retrieve the corresponding volumes. If there is not at least one resource that matches each name element, an error is returned."
+                "tooltip": "Specify the comma-separated volume names to retrieve the corresponding volumes. If there is not at least one resource that matches each name element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated volume names to retrieve the corresponding volumes. If there is not at least one resource that matches each name element, an error is returned."
               }
             ]
           }
@@ -1047,7 +1047,7 @@
           "visible": true,
           "required": false,
           "placeholder": "e.g. destroyed='false' and connection_count=1",
-          "tooltip": "Specify the filter criteria to retrieve required directories. Single quotes are required around all strings inside the filters.",
+          "tooltip": "Specify the filter criteria to retrieve required volume. Single quotes are required around all strings inside the filters.",
           "description": "(Optional) Specify the filter criteria to retrieve required directories. Single quotes are required around all strings inside the filters. e.g. destroyed='false' and connection_count=1"
         },
         {
@@ -1058,8 +1058,8 @@
           "visible": true,
           "required": false,
           "placeholder": "e.g. provisioned-, created",
-          "tooltip": "Specify fields to sort the directories. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
-          "description": "(Optional) Specify fields to sort the directories. If you want to sort in descending order then append '-' to the field name. e.g. provisioned-, created. Note: If you provide a sort you will not get a continuation token in the response."
+          "tooltip": "Specify fields to sort the volumes. If you want to sort in descending order then append '-' to the field name. Note: If you provide a sort you will not get a continuation token in the response.",
+          "description": "(Optional) Specify fields to sort the volumes. If you want to sort in descending order then append '-' to the field name. e.g. provisioned-, created. Note: If you provide a sort you will not get a continuation token in the response."
         },
         {
           "name": "destroyed",
@@ -1257,8 +1257,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the comma-separated directory names to retrieve the corresponding protection groups. If there is not at least one resource that matches each name element, an error is returned.",
-          "description": "(Optional) Specify the comma-separated directory names to retrieve the corresponding protection groups. If there is not at least one resource that matches each name element, an error is returned."
+          "tooltip": "Specify the comma-separated protection group names to retrieve the corresponding protection groups. If there is not at least one resource that matches each name element, an error is returned.",
+          "description": "(Optional) Specify the comma-separated protection group names to retrieve the corresponding protection groups. If there is not at least one resource that matches each name element, an error is returned."
         },
         {
           "name": "filter",
@@ -1481,7 +1481,7 @@
     {
       "operation": "get_sessions",
       "title": "Get Session List",
-      "annotation": "get_alerts",
+      "annotation": "get_sessions",
       "description": "Retrieves information about session for user login events performed in the Purity//FA GUI, CLI, and REST API.",
       "category": "investigation",
       "visible": true,
@@ -1509,8 +1509,8 @@
                 "editable": true,
                 "visible": true,
                 "required": false,
-                "tooltip": "Specify the comma-separated directory IDs to retrieve the corresponding sessions. If there is not at least one resource that matches each id element, an error is returned.",
-                "description": "(Optional) Specify the comma-separated directory IDs to retrieve the corresponding sessions. If there is not at least one resource that matches each id element, an error is returned."
+                "tooltip": "Specify the comma-separated session IDs to retrieve the corresponding sessions. If there is not at least one resource that matches each id element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated session IDs to retrieve the corresponding sessions. If there is not at least one resource that matches each id element, an error is returned."
               }
             ],
             "Session Names": [
@@ -1521,8 +1521,8 @@
                 "editable": true,
                 "visible": true,
                 "required": false,
-                "tooltip": "Specify the comma-separated directory names to retrieve the corresponding sessions. If there is not at least one resource that matches each name element, an error is returned.",
-                "description": "(Optional) Specify the comma-separated directory names to retrieve the corresponding sessions. If there is not at least one resource that matches each name element, an error is returned."
+                "tooltip": "Specify the comma-separated session names to retrieve the corresponding sessions. If there is not at least one resource that matches each name element, an error is returned.",
+                "description": "(Optional) Specify the comma-separated session names to retrieve the corresponding sessions. If there is not at least one resource that matches each name element, an error is returned."
               }
             ]
           }
