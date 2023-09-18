@@ -8,15 +8,14 @@ from connectors.core.connector import Connector, get_logger, ConnectorError
 from .operations import operations
 from .pure_storage_api_auth import _check_health
 
+logger = get_logger("pure-storage-flasharray")
 
-logger = get_logger("pure-storage")
 
-
-class CustomConnector(Connector):
+class PureStorage(Connector):
     def execute(self, config, operation, params, **kwargs):
         try:
             config['connector_info'] = {"connector_name": self._info_json.get('name'),
-                "connector_version": self._info_json.get('version')}
+                                        "connector_version": self._info_json.get('version')}
             operation = operations.get(operation)
 
             if not operation:
@@ -30,7 +29,7 @@ class CustomConnector(Connector):
     def check_health(self, config=None):
         try:
             config['connector_info'] = {"connector_name": self._info_json.get('name'),
-                "connector_version": self._info_json.get('version')}
+                                        "connector_version": self._info_json.get('version')}
             return _check_health(config)
         except Exception as err:
             raise ConnectorError(err)

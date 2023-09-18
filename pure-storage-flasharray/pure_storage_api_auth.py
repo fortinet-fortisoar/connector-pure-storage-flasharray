@@ -12,7 +12,7 @@ from connectors.core.connector import get_logger, ConnectorError
 from connectors.core.utils import update_connnector_config
 from .constants import *
 
-logger = get_logger('pure-storage')
+logger = get_logger('pure-storage-flasharray')
 
 
 class PureStorageAuth:
@@ -39,8 +39,7 @@ class PureStorageAuth:
                 'subject_token_type': SUBJECT_TOKEN_TYPE,
                 'subject_token': generate_jwt_token(config)
             }
-            resp = self.make_request(method='POST', endpoint=AUTHORIZATION_ENDPOINT, data=payload,
-                                     generate_token=True)
+            resp = self.make_request_rest_api_call(method='POST', endpoint=AUTHORIZATION_ENDPOINT, data=payload, generate_token=True)
             logger.debug("Access token generated successfully !!!!!")
             ts_now = time()
             resp['expires_in'] = (ts_now + resp['expires_in']) if resp.get("expires_in") else None
@@ -70,8 +69,7 @@ class PureStorageAuth:
             logger.debug("Token is valid till {0}".format(expires))
             return "Bearer {0}".format(connector_config.get('access_token'))
 
-    def make_request(self, endpoint='', params=None, data=None, method='GET', headers=None, url=None, json_data=None,
-                     generate_token=False):
+    def make_request_rest_api_call(self, endpoint='', params=None, data=None, method='GET', headers=None, url=None, json_data=None, generate_token=False):
         try:
             if url is None:
                 url = self.server_url + endpoint.format(self.api_version)

@@ -1,0 +1,711 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "uuid": "59227f38-d4f9-4636-9050-b0fa866f386c",
+      "@type": "WorkflowCollection",
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "uuid": "deac38db-d238-448b-a3f3-b2441da766fa",
+          "collection": "/api/3/workflow_collections/59227f38-d4f9-4636-9050-b0fa866f386c",
+          "steps": [
+            {
+              "uuid": "6ba4f1d3-87e7-49ee-b5ef-912b01d6141b",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "86fcf4d7-01d7-467b-869c-b37b913d1113",
+              "@type": "WorkflowStep",
+              "name": "Get Alert List",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Pure Storage FlashArray",
+                "config": "''",
+                "params": {
+                  "based_on": "",
+                  "filter": "",
+                  "sort": "",
+                  "flagged": "",
+                  "total_item_count": "",
+                  "continuation_token": "",
+                  "offset": "",
+                  "limit": ""
+                },
+                "version": "1.0.0",
+                "connector": "pure-storage-flasharray",
+                "operation": "get_alerts",
+                "operationTitle": "Get Alert List"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves information about alerts generated on FlashArray. Alerts indicate significant events that occur on an array.",
+          "name": "Get Alert List",
+          "tag": "#Pure Storage FlashArray",
+          "recordTags": [
+            "Pure Storage",
+            "pure-storage-flasharray"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/6ba4f1d3-87e7-49ee-b5ef-912b01d6141b",
+          "routes": [
+            {
+              "uuid": "05fed073-d780-4ed8-bf22-823e8adca15e",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Alert List",
+              "sourceStep": "/api/3/workflow_steps/6ba4f1d3-87e7-49ee-b5ef-912b01d6141b",
+              "targetStep": "/api/3/workflow_steps/86fcf4d7-01d7-467b-869c-b37b913d1113"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "21000d32-961f-4ec1-b8a1-a89ec1b0f694",
+          "collection": "/api/3/workflow_collections/59227f38-d4f9-4636-9050-b0fa866f386c",
+          "steps": [
+            {
+              "uuid": "85a9cc26-e264-4f92-9328-7462a54d8901",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "9ab51c39-b3d3-4e2a-880d-3fd0772b9de7",
+              "@type": "WorkflowStep",
+              "name": "Get Array List",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Pure Storage FlashArray",
+                "config": "''",
+                "params": {
+                  "based_on": "",
+                  "filter": "",
+                  "fqdns": "",
+                  "sort": "",
+                  "total_item_count": "",
+                  "continuation_token": "",
+                  "offset": "",
+                  "limit": ""
+                },
+                "version": "1.0.0",
+                "connector": "pure-storage-flasharray",
+                "operation": "get_arrays",
+                "operationTitle": "Get Array List"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves information about FlashArray storage appliances from Pure Storage.",
+          "name": "Get Array List",
+          "tag": "#Pure Storage FlashArray",
+          "recordTags": [
+            "Pure Storage",
+            "pure-storage-flasharray"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/85a9cc26-e264-4f92-9328-7462a54d8901",
+          "routes": [
+            {
+              "uuid": "09e374f9-4676-484d-8cac-15b3f1f625ae",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Array List",
+              "sourceStep": "/api/3/workflow_steps/85a9cc26-e264-4f92-9328-7462a54d8901",
+              "targetStep": "/api/3/workflow_steps/9ab51c39-b3d3-4e2a-880d-3fd0772b9de7"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "debf2006-9a62-41d3-84d8-d2ad58eb5696",
+          "collection": "/api/3/workflow_collections/59227f38-d4f9-4636-9050-b0fa866f386c",
+          "steps": [
+            {
+              "uuid": "14b8945e-9c86-4596-86bb-415952b6313c",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "35495516-4123-46fa-a506-8569198cc118",
+              "@type": "WorkflowStep",
+              "name": "Get Controller List",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Pure Storage FlashArray",
+                "config": "''",
+                "params": {
+                  "names": "",
+                  "filter": "",
+                  "sort": "",
+                  "total_item_count": "",
+                  "continuation_token": "",
+                  "offset": "",
+                  "limit": ""
+                },
+                "version": "1.0.0",
+                "connector": "pure-storage-flasharray",
+                "operation": "get_controllers",
+                "operationTitle": "Get Controller List"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves information about FlashArray controllers from Pure Storage.",
+          "name": "Get Controller List",
+          "tag": "#Pure Storage FlashArray",
+          "recordTags": [
+            "Pure Storage",
+            "pure-storage-flasharray"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/14b8945e-9c86-4596-86bb-415952b6313c",
+          "routes": [
+            {
+              "uuid": "415445e2-4c7f-4db1-9b15-ac3b61ac64b6",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Controller List",
+              "sourceStep": "/api/3/workflow_steps/14b8945e-9c86-4596-86bb-415952b6313c",
+              "targetStep": "/api/3/workflow_steps/35495516-4123-46fa-a506-8569198cc118"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "dfc4abd1-314a-4464-8629-4fe5cd8be853",
+          "collection": "/api/3/workflow_collections/59227f38-d4f9-4636-9050-b0fa866f386c",
+          "steps": [
+            {
+              "uuid": "da9d98b4-059e-4233-82f1-def590710cb2",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "59c2f492-a03e-4554-9c4f-6d2842c2ae2f",
+              "@type": "WorkflowStep",
+              "name": "Get Directory List",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Pure Storage FlashArray",
+                "config": "''",
+                "params": {
+                  "based_on": "",
+                  "filesystem_filter": "",
+                  "filter": "",
+                  "sort": "",
+                  "destroyed": "",
+                  "total_item_count": "",
+                  "total_only": "",
+                  "continuation_token": "",
+                  "offset": "",
+                  "limit": ""
+                },
+                "version": "1.0.0",
+                "connector": "pure-storage-flasharray",
+                "operation": "get_directories",
+                "operationTitle": "Get Directory List"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves information about FlashArray managed directory objects from Pure Storage.",
+          "name": "Get Directory List",
+          "tag": "#Pure Storage FlashArray",
+          "recordTags": [
+            "Pure Storage",
+            "pure-storage-flasharray"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/da9d98b4-059e-4233-82f1-def590710cb2",
+          "routes": [
+            {
+              "uuid": "f13836f4-2866-4268-80d2-305ba8b42a96",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Directory List",
+              "sourceStep": "/api/3/workflow_steps/da9d98b4-059e-4233-82f1-def590710cb2",
+              "targetStep": "/api/3/workflow_steps/59c2f492-a03e-4554-9c4f-6d2842c2ae2f"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "077906fe-3f16-4a4a-b97f-ecf2ed7e1462",
+          "collection": "/api/3/workflow_collections/59227f38-d4f9-4636-9050-b0fa866f386c",
+          "steps": [
+            {
+              "uuid": "32fcbe59-ef3c-4d74-83f0-ca054add9a16",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "288c3ece-cc23-4be5-8bfd-98019af0d0d1",
+              "@type": "WorkflowStep",
+              "name": "Get Drive List",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Pure Storage FlashArray",
+                "config": "''",
+                "params": {
+                  "names": "",
+                  "filter": "",
+                  "sort": "",
+                  "total_item_count": "",
+                  "continuation_token": "",
+                  "offset": "",
+                  "limit": ""
+                },
+                "version": "1.0.0",
+                "connector": "pure-storage-flasharray",
+                "operation": "get_drives",
+                "operationTitle": "Get Drive List"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves information about FlashArray drives from Pure Storage.",
+          "name": "Get Drive List",
+          "tag": "#Pure Storage FlashArray",
+          "recordTags": [
+            "Pure Storage",
+            "pure-storage-flasharray"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/32fcbe59-ef3c-4d74-83f0-ca054add9a16",
+          "routes": [
+            {
+              "uuid": "6208eeab-ce9a-4ec2-8f2b-86e096f793a0",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Drive List",
+              "sourceStep": "/api/3/workflow_steps/32fcbe59-ef3c-4d74-83f0-ca054add9a16",
+              "targetStep": "/api/3/workflow_steps/288c3ece-cc23-4be5-8bfd-98019af0d0d1"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "9dbfccdc-8266-4453-a160-8812711ae097",
+          "collection": "/api/3/workflow_collections/59227f38-d4f9-4636-9050-b0fa866f386c",
+          "steps": [
+            {
+              "uuid": "6538d5f0-9c09-413a-a6f2-17f7275dfa15",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "60aa7e3a-4cec-40f1-b518-9a9ab9208ca4",
+              "@type": "WorkflowStep",
+              "name": "Get Audit List",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Pure Storage FlashArray",
+                "config": "''",
+                "params": {
+                  "based_on": "",
+                  "filter": "",
+                  "sort": "",
+                  "total_item_count": "",
+                  "continuation_token": "",
+                  "offset": "",
+                  "limit": ""
+                },
+                "version": "1.0.0",
+                "connector": "pure-storage-flasharray",
+                "operation": "get_audits",
+                "operationTitle": "Get Audit List"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves a list of audits from Pure Storage.",
+          "name": "Get Audit List",
+          "tag": "#Pure Storage FlashArray",
+          "recordTags": [
+            "Pure Storage",
+            "pure-storage-flasharray"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/6538d5f0-9c09-413a-a6f2-17f7275dfa15",
+          "routes": [
+            {
+              "uuid": "4db6d6fd-6e18-44c1-9ece-77474ef5f724",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Audit List",
+              "sourceStep": "/api/3/workflow_steps/6538d5f0-9c09-413a-a6f2-17f7275dfa15",
+              "targetStep": "/api/3/workflow_steps/60aa7e3a-4cec-40f1-b518-9a9ab9208ca4"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "78744175-773a-416d-987d-736b769cbd0a",
+          "collection": "/api/3/workflow_collections/59227f38-d4f9-4636-9050-b0fa866f386c",
+          "steps": [
+            {
+              "uuid": "27ff3a47-762c-4431-b75c-cbb3a1572079",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "e3f46a64-a306-45ea-9270-77092bbe33a8",
+              "@type": "WorkflowStep",
+              "name": "Get Volume List",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Pure Storage FlashArray",
+                "config": "''",
+                "params": {
+                  "based_on": "",
+                  "filter": "",
+                  "sort": "",
+                  "destroyed": "",
+                  "total_item_count": "",
+                  "total_only": "",
+                  "continuation_token": "",
+                  "offset": "",
+                  "limit": ""
+                },
+                "version": "1.0.0",
+                "connector": "pure-storage-flasharray",
+                "operation": "get_volumes",
+                "operationTitle": "Get Volume List"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves volume list including those pending eradication from Pure Storage.",
+          "name": "Get Volume List",
+          "tag": "#Pure Storage FlashArray",
+          "recordTags": [
+            "Pure Storage",
+            "pure-storage-flasharray"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/27ff3a47-762c-4431-b75c-cbb3a1572079",
+          "routes": [
+            {
+              "uuid": "2219dedc-08b5-4e98-a963-bc2b3a2fc5f3",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Volume List",
+              "sourceStep": "/api/3/workflow_steps/27ff3a47-762c-4431-b75c-cbb3a1572079",
+              "targetStep": "/api/3/workflow_steps/e3f46a64-a306-45ea-9270-77092bbe33a8"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "5cfcd6a1-bb38-4c44-96a8-5deddb8c9212",
+          "collection": "/api/3/workflow_collections/59227f38-d4f9-4636-9050-b0fa866f386c",
+          "steps": [
+            {
+              "uuid": "77e64029-088d-481b-a811-a18b1b45a787",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "599c16a9-d4aa-4166-8cc6-093d2860f1ba",
+              "@type": "WorkflowStep",
+              "name": "Get Protection Group List",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Pure Storage FlashArray",
+                "config": "''",
+                "params": {
+                  "names": "",
+                  "filter": "",
+                  "sort": "",
+                  "destroyed": "",
+                  "total_item_count": "",
+                  "total_only": "",
+                  "continuation_token": "",
+                  "offset": "",
+                  "limit": ""
+                },
+                "version": "1.0.0",
+                "connector": "pure-storage-flasharray",
+                "operation": "get_protection_groups",
+                "operationTitle": "Get Protection Group List"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves a list of protection groups, including their associated source arrays, replication targets, hosts, host groups, and volumes from Pure Storage. The list includes protection groups that were created on the local array to replicate snapshot data to other arrays or offload targets, created on a remote array and replicated asynchronously to this array, or created inside a pod on a remote array and stretched to the local array.",
+          "name": "Get Protection Group List",
+          "tag": "#Pure Storage FlashArray",
+          "recordTags": [
+            "Pure Storage",
+            "pure-storage-flasharray"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/77e64029-088d-481b-a811-a18b1b45a787",
+          "routes": [
+            {
+              "uuid": "01911b5a-a52c-4a62-a0e6-6949b0198ac2",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Protection Group List",
+              "sourceStep": "/api/3/workflow_steps/77e64029-088d-481b-a811-a18b1b45a787",
+              "targetStep": "/api/3/workflow_steps/599c16a9-d4aa-4166-8cc6-093d2860f1ba"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "62e1adbf-cd99-4904-950f-2541da15493b",
+          "collection": "/api/3/workflow_collections/59227f38-d4f9-4636-9050-b0fa866f386c",
+          "steps": [
+            {
+              "uuid": "095e3fd4-4da6-401f-b7ed-dd1425f72a34",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                }
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62"
+            },
+            {
+              "uuid": "4c61b5b0-f9c8-4aaf-84bf-82a4ca67de26",
+              "@type": "WorkflowStep",
+              "name": "Get Session List",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Pure Storage FlashArray",
+                "config": "''",
+                "params": {
+                  "based_on": "",
+                  "filter": "",
+                  "sort": "",
+                  "total_item_count": "",
+                  "continuation_token": "",
+                  "offset": "",
+                  "limit": ""
+                },
+                "version": "1.0.0",
+                "connector": "pure-storage-flasharray",
+                "operation": "get_sessions",
+                "operationTitle": "Get Session List"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "triggerLimit": null,
+          "description": "Retrieves information about session for user login events performed in the Purity//FA GUI, CLI, and REST API.",
+          "name": "Get Session List",
+          "tag": "#Pure Storage FlashArray",
+          "recordTags": [
+            "Pure Storage",
+            "pure-storage-flasharray"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/095e3fd4-4da6-401f-b7ed-dd1425f72a34",
+          "routes": [
+            {
+              "uuid": "682122d4-46d5-4c7f-a3a0-5accc4f5f105",
+              "@type": "WorkflowRoute",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Session List",
+              "sourceStep": "/api/3/workflow_steps/095e3fd4-4da6-401f-b7ed-dd1425f72a34",
+              "targetStep": "/api/3/workflow_steps/4c61b5b0-f9c8-4aaf-84bf-82a4ca67de26"
+            }
+          ]
+        }
+      ],
+      "name": "Sample - Pure Storage FlashArray - 1.0.0",
+      "description": "Pure Storage is a leading provider of enterprise data storage solutions. It is specialize in all-flash storage arrays, delivering high-performance, reliable, and scalable storage solutions for businesses. With Pure Storage FlashArray, organizations can accelerate applications, improve productivity, and make data-driven decisions. Experience the power of next-generation storage technology with Pure Storage FlashArray.",
+      "visible": true,
+      "recordTags": [
+        "Pure Storage",
+        "pure-storage-flasharray"
+      ]
+    }
+  ]
+}

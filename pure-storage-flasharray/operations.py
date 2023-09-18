@@ -57,17 +57,15 @@ def build_payload(params):
 
 
 def convert_string_to_list(input_string):
-    if type(input_string) is str:
-        return input_string
-    elif isinstance(input_string, (list, tuple)):
+    if isinstance(input_string, (list, tuple)):
         return ",".join(map(str, input_string))
-    return None
+    return input_string
 
 
 def retrieve_resources(config, params, endpoint):
     ps = PureStorageAuth(config)
     payload = build_payload(params)
-    response = ps.make_request(endpoint=endpoint, params=payload)
+    response = ps.make_request_rest_api_call(endpoint=endpoint, params=payload)
     return response
 
 
