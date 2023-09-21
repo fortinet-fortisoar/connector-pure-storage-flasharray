@@ -47,6 +47,8 @@ def get_sessions(config: dict, params: dict) -> dict:
 def build_payload(params):
     built_payload = {}
     for k, v in params.items():
+        if k in ['based_on', 'filesystem_filter']:
+            continue
         if k in ['ids', 'names', 'sort', "fqdns", "file_system_ids", "file_system_names"]:
             v = convert_string_to_list(v)
         if type(v) is dict:

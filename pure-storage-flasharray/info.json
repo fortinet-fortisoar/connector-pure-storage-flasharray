@@ -758,7 +758,7 @@
     },
     {
       "operation": "get_drives",
-      "title": "Get FlashArray Drive List",
+      "title": "Get Drive List",
       "annotation": "get_drives",
       "description": "Retrieves information about FlashArray drives from Pure Storage.",
       "category": "investigation",
