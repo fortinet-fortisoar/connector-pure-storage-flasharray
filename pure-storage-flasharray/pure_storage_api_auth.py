@@ -78,6 +78,18 @@ class PureStorageAuth:
                     "Content-Type": "application/json",
                     "Authorization": self.access_token
                 }
+            try:
+                from connectors.debug_utils.curl_script import make_curl
+                debug_data = data.copy() if data else None
+                debug_headers = headers.copy() if headers else None
+                if generate_token:
+                    debug_data['subject_token'] = '*****************'
+                else:
+                    debug_headers["Authorization"] = "*****************"
+                make_curl(method=method, url=url, headers=debug_headers, data=debug_data,
+                                        params=params, verify_ssl=self.verify_ssl)
+            except:
+                pass
             response = requests.request(method=method, url=url, headers=headers, data=data, json=json_data,
                                         params=params, verify=self.verify_ssl, timeout=MAX_REQUEST_TIMEOUT)
             if response.ok:
