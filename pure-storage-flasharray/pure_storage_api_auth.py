@@ -11,6 +11,8 @@ import requests
 from connectors.core.connector import get_logger, ConnectorError
 from connectors.core.utils import update_connnector_config
 from .constants import *
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import serialization
 
 logger = get_logger('pure-storage-flasharray')
 
@@ -137,6 +139,7 @@ def generate_jwt_token(config):
     else:
         logger.warning("Type of private key is not file")
         private_key = config.get('private_key')
+    passphrase = config.get('passphrase')
     payload = {
         "aud": config.get('aud'),
         "sub": config.get('sub'),
@@ -149,6 +152,13 @@ def generate_jwt_token(config):
         "typ": "JWT",
         "kid": config.get('kid')
     }
+    if passphrase:
+        try:
+            private_key = serialization.load_pem_private_key(
+                private_key.encode(), password=passphrase.encode(), backend=default_backend())
+        except ValueError as err:
+            logger.error(str(err))
+            raise ConnectorError("Bad decrypt. Incorrect passphrase?")
     token = jwt.encode(payload, private_key, algorithm='RS256', headers=header)
     logger.debug("JWT token successfully generated...")
     return token

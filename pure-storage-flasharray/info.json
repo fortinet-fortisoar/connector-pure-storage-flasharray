@@ -35,16 +35,6 @@
         "description": "Specify the application ID for the Pure1 or API client's trusted identity issuer on the array."
       },
       {
-        "name": "private_key",
-        "title": "Private Key",
-        "type": "file",
-        "editable": true,
-        "visible": true,
-        "required": true,
-        "tooltip": "Specify the private key which is paired with the API client's public key.",
-        "description": "Specify the private key which is paired with the API client's public key."
-      },
-      {
         "name": "sub",
         "title": "User Name",
         "type": "text",
@@ -76,6 +66,56 @@
         "value": "",
         "tooltip": "Specify the Key ID of the API client that issues the identity token.",
         "description": "Specify the Key ID of the API client that issues the identity token."
+      },
+      {
+        "name": "private_key_type",
+        "title": "Private Key Type",
+        "type": "select",
+        "editable": true,
+        "visible": true,
+        "required": true,
+        "tooltip": "Specify the type of private key which is paired with the API client's public key.",
+        "description": "Specify the type of private key which is paired with the API client's public key.",
+        "options": [
+          "Encrypted",
+          "Not Encrypted"
+        ],
+        "onchange": {
+          "Encrypted": [
+            {
+              "name": "private_key",
+              "title": "Private Key",
+              "type": "file",
+              "editable": true,
+              "visible": true,
+              "required": true,
+              "tooltip": "Specify the private key which is paired with the API client's public key.",
+              "description": "Specify the private key which is paired with the API client's public key."
+            },
+            {
+              "name": "passphrase",
+              "title": "Passphrase",
+              "type": "password",
+              "editable": true,
+              "visible": true,
+              "required": true,
+              "tooltip": "Specify the passphrase of private key with which it is encrypted",
+              "description": "Specify the passphrase of private key with which it is encrypted"
+            }
+          ],
+          "Not Encrypted": [
+            {
+              "name": "private_key",
+              "title": "Private Key",
+              "type": "file",
+              "editable": true,
+              "visible": true,
+              "required": true,
+              "tooltip": "Specify the private key which is paired with the API client's public key.",
+              "description": "Specify the private key which is paired with the API client's public key."
+            }
+          ]
+        }
       },
       {
         "name": "api_version",
@@ -782,7 +822,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "placeholder":"e.g. type='SSD' and status='healthy'",
+          "placeholder": "e.g. type='SSD' and status='healthy'",
           "tooltip": "Specify the filter criteria to retrieve required drives. Single quotes are required around all strings inside the filters.",
           "description": "(Optional) Specify the filter criteria to retrieve required drives. Single quotes are required around all strings inside the filters. e.g. type='SSD' and status='healthy'"
         },
